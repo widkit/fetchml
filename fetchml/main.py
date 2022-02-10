@@ -177,22 +177,22 @@ with open('index.html', 'r') as file:
     filedata = file.read()
 
     # Doing the replacements of variables
-    filedata = filedata.replace('$os', '{}').format(system)
-    filedata = filedata.replace('$host', '{}').format(host)
-    filedata = filedata.replace('$kernel', '{}').format(kernel)
-    filedata = filedata.replace('$uptime', '{}').format(uptime)
-    filedata = filedata.replace('$packages', '{}').format(packages)
-    filedata = filedata.replace('$shell', '{}').format(shell)
-    filedata = filedata.replace('$resolution', '{}').format(resolution)
+    filedata = filedata.replace('$os', system)
+    filedata = filedata.replace('$host', host)
+    filedata = filedata.replace('$kernel', kernel)
+    filedata = filedata.replace('$uptime', uptime)
+    filedata = filedata.replace('$packages', packages)
+    filedata = filedata.replace('$shell', shell)
+    filedata = filedata.replace('$resolution', resolution)
     filedata = filedata.replace(
-        '$desktop_enviroment', '{}').format(desktop_enviroment)
-    filedata = filedata.replace('$window_manager', '{}').format(window_manager)
+        '$desktop_enviroment', desktop_enviroment)
+    filedata = filedata.replace('$window_manager', window_manager)
     filedata = filedata.replace(
-        '$wmtheme', '{}').format(wmtheme)
-    filedata = filedata.replace('$terminal', '{}').format(terminal)
-    filedata = filedata.replace('$cpu', '{}').format(cpu)
-    filedata = filedata.replace('$gpu', '{}').format(gpu)
-    filedata = filedata.replace('$memory', '{}').format(memory)
+        '$wmtheme', wmtheme)
+    filedata = filedata.replace('$terminal', terminal)
+    filedata = filedata.replace('$cpu', cpu)
+    filedata = filedata.replace('$gpu', gpu)
+    filedata = filedata.replace('$memory', memory)
 
     # Writing changes to new file
     with open('render.html', 'w') as file:
