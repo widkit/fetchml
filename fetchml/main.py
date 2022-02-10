@@ -173,7 +173,7 @@ window_manager = ''
 wmtheme = ''
 
 # Reading the file
-with open('./fetchml/index.html', 'r') as file:
+with open('index.html', 'r') as file:
     filedata = file.read()
 
     # Doing the replacements of variables
@@ -195,11 +195,11 @@ with open('./fetchml/index.html', 'r') as file:
     filedata = filedata.replace('$memory', '{}').format(memory)
 
     # Writing changes to new file
-    with open('./fetchml/render.html', 'w') as file:
+    with open('render.html', 'w') as file:
         file.write(filedata)
 # Using IMGKIT to render the render.html and outputting as result.png
-imgkit.from_file('./fetchml/render.html', './fetchml/result.png')
+imgkit.from_file('render.html', 'result.png')
 # Using feh to display the output image
-os.system("feh ./fetchml/result.png")
-os.remove("./fetchml/result.png")
-os.remove("./fetchml/render.html")
+os.system("feh result.png")
+os.remove("result.png")
+os.remove("render.html")
