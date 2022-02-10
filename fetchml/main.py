@@ -147,10 +147,7 @@ cpu_model = y['model']
 # cpu_flags = y['flags']
 
 ### OUTPUT STRING ###
-fetch = f"""{user}@{hostname}{distro().strip()}{cpu_model}{wm}{kernel()}{shell}{used_mem}MB / {total_mem}MB
-"""
 
-print(fetch)
 
 ###
 
@@ -160,17 +157,17 @@ print(fetch)
 
 
 # Assigning command outputs as variables to display in HTML file
-system = ''
-host = ''
-kernel = ''
+system = user
+host = hostname
+kernel = kernel()
 uptime = ''
 packages = ''
-shell = ''
+shell = shell
 resolution = ''
 terminal = ''
 cpu = ''
 gpu = ''
-memory = ''
+memory = 'used_mem', 'MB / ', total_mem, ' MB'
 desktop_enviroment = ''
 window_manager = ''
 wmtheme = ''
