@@ -1,4 +1,10 @@
-os = ''
+
+
+import imgkit
+import os
+
+
+system = ''
 host = ''
 kernel = ''
 uptime = ''
@@ -18,7 +24,7 @@ with open('index.html', 'r') as file:
     filedata = file.read()
 
     # Doing the replacements of variables
-    filedata = filedata.replace('$os', '{}').format(os)
+    filedata = filedata.replace('$os', '{}').format(system)
     filedata = filedata.replace('$host', '{}').format(host)
     filedata = filedata.replace('$kernel', '{}').format(kernel)
     filedata = filedata.replace('$uptime', '{}').format(uptime)
@@ -38,3 +44,5 @@ with open('index.html', 'r') as file:
     # Writing changes to new file
     with open('render.html', 'w') as file:
         file.write(filedata)
+imgkit.from_file('render.html', 'result.png')
+os.system("feh result.png")
