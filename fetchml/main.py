@@ -201,3 +201,5 @@ with open('index.html', 'r') as file:
 imgkit.from_file('render.html', 'result.png')
 # Using feh to display the output image
 os.system("feh result.png")
+os.remove("result.png")
+os.remove("render.html")
