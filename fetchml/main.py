@@ -199,7 +199,11 @@ with open('index.html', 'r') as file:
         file.write(filedata)
 # Using IMGKIT to render the render.html and outputting as result.png
 imgkit.from_file('render.html', 'result.png')
+
 # Using feh to display the output image
+os.system("echo Viewing")
 os.system("feh result.png")
+
+# Removing temp files
 os.remove("result.png")
 os.remove("render.html")
