@@ -147,7 +147,7 @@ cpu_model = y['model']
 # cpu_flags = y['flags']
 
 ### OUTPUT STRING ###
-fetch = f"""{user}@{hostname}{distro().strip()}{cpu_model}{wm}{kernel()}{shell}{used_mem}MB / {total_mem}MB{reset}
+fetch = f"""{user}@{hostname}{distro().strip()}{cpu_model}{wm}{kernel()}{shell}{used_mem}MB / {total_mem}MB
 """
 
 print(fetch)
