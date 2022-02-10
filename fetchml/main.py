@@ -1,7 +1,12 @@
-x = 'macos'
+os = 'macos'
 
-with open('fetchml/fetchml', 'r') as file:
+# Reading the file
+with open('index.html', 'r') as file:
     filedata = file.read()
-    filedata = filedata.replace('$os', '{}').format(x)
-with open('fetchml/fetchml', 'w') as file:
+
+    # Doing the replacements of variables
+    filedata = filedata.replace('$os', '{}').format(os)
+
+# Writing changes to new file
+with open('render.html', 'w') as file:
     file.write(filedata)
