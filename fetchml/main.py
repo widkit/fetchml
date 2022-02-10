@@ -10,47 +10,6 @@ import sys
 
 ###
 
-### COLORS ###
-black = "\033[30m"
-red = '\033[31m'
-green = "\033[32m"
-yellow = "\033[33m"
-blue = "\033[34m"
-purple = "\033[35m"
-cyan = "\033[36m"
-white = "\033[37m"
-reset = "\033[0m"
-
-### COLOR BLOCKS ###
-
-
-def color_blocks():
-
-    # Thin
-    c1 = "\033[7;30m  \033[0;1;30m"
-    c2 = "\033[7;31m  \033[0;1;31m"
-    c3 = "\033[7;32m  \033[0;1;32m"
-    c4 = "\033[7;33m  \033[0;1;33m"
-    c5 = "\033[7;34m  \033[0;1;34m"
-    c6 = "\033[7;35m  \033[0;1;35m"
-    c7 = "\033[7;36m  \033[0;1;36m"
-    c8 = "\033[7;37m  \033[0;1;37m"
-
-    # Thick
-    _c1 = "\033[7;30m    \033[0;1;30m"
-    _c2 = "\033[7;31m    \033[0;1;31m"
-    _c3 = "\033[7;32m    \033[0;1;32m"
-    _c4 = "\033[7;33m    \033[0;1;33m"
-    _c5 = "\033[7;34m    \033[0;1;34m"
-    _c6 = "\033[7;35m    \033[0;1;35m"
-    _c7 = "\033[7;36m    \033[0;1;36m"
-    _c8 = "\033[7;37m    \033[0;1;37m"
-
-    return {
-        'thin': f'{c1}{c2}{c3}{c4}{c5}{c6}{c7}{c8}',
-        'thick': f'{_c1}{_c2}{_c3}{_c4}{_c5}{_c6}{_c7}{_c8}\n{_c1}{_c2}{_c3}{_c4}{_c5}{_c6}{_c7}{_c8}'
-    }
-
 ### DISTRO ###
 
 
@@ -187,26 +146,8 @@ cpu_model = y['model']
 # cpu_threads = y['threads']
 # cpu_flags = y['flags']
 
-### VARS FOR COLOR BLOCKS ###
-try:
-    if sys.argv[1] == '--thin' or sys.argv[1] != '--thick':
-        color_blocks = color_blocks()['thin']
-    else:
-        color_blocks = color_blocks()['thick']
-except IndexError:
-    color_blocks = color_blocks()['thin']
-
 ### OUTPUT STRING ###
-fetch = f"""
-               {blue}{user}@{hostname}{reset}
-{black}     .--.      {reset}======================{reset}
-{black}    |{white}o{yellow}_{white}o{black} |     {yellow}  {distro().strip()}{reset}
-{black}    |{yellow}:_/{black} |     {red}  {cpu_model}{reset}
-{black}   /{white}/   \{black} \\    {purple}  {wm}{reset}
-{black}  ({white}|     |{black} )   {blue}  {kernel()}{reset}
-{yellow} /'{white}\_   _/{yellow}`\\   {cyan}  {shell}{reset}
-{yellow} \___){black}={yellow}(___/   {green}塞 {used_mem}MB / {total_mem}MB{reset}
-{color_blocks}
+fetch = f""{user}@{hostname}{distro().strip()}{cpu_model}{wm}{kernel()}{shell}{used_mem}MB / {total_mem}MB{reset}
 """
 
 print(fetch)
@@ -263,4 +204,3 @@ with open('index.html', 'r') as file:
 imgkit.from_file('render.html', 'result.png')
 # Using feh to display the output image
 os.system("feh result.png")
-print(mem())
