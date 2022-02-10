@@ -183,7 +183,33 @@ free_mem = total_mem - used_mem
 ### VARS FOR CPU ###
 y = cpu()
 cpu_model = y['model']
+# cpu_cores = y['cores']
+# cpu_threads = y['threads']
+# cpu_flags = y['flags']
 
+### VARS FOR COLOR BLOCKS ###
+try:
+    if sys.argv[1] == '--thin' or sys.argv[1] != '--thick':
+        color_blocks = color_blocks()['thin']
+    else:
+        color_blocks = color_blocks()['thick']
+except IndexError:
+    color_blocks = color_blocks()['thin']
+
+### OUTPUT STRING ###
+fetch = f"""
+               {blue}{user}@{hostname}{reset}
+{black}     .--.      {reset}======================{reset}
+{black}    |{white}o{yellow}_{white}o{black} |     {yellow}  {distro().strip()}{reset}
+{black}    |{yellow}:_/{black} |     {red}  {cpu_model}{reset}
+{black}   /{white}/   \{black} \\    {purple}  {wm}{reset}
+{black}  ({white}|     |{black} )   {blue}  {kernel()}{reset}
+{yellow} /'{white}\_   _/{yellow}`\\   {cyan}  {shell}{reset}
+{yellow} \___){black}={yellow}(___/   {green}塞 {used_mem}MB / {total_mem}MB{reset}
+{color_blocks}
+"""
+
+print(fetch)
 
 # Importing libraries needed
 
