@@ -1,27 +1,26 @@
-# fetchml
+###feTcHML
+# A HTML based fetch service.
 
-#feTcHML
-A HTML based fetch service.
-
-fetchml is based on Python and is open-source. 
+# fetchml is based on Python and is open-source. 
 
 
 fetchml uses HTML templates to display output of system information.
 
 It is super-easy to customize with a litte HTML and CSS knowledge.
 
-# Installation
+## Installation
 
-git clone https://github.com/widkit/fetchml
-cd fetchml
+`git clone https://github.com/widkit/fetchml` to clone the repository to your internal storage.
 
-# Usage
+`cd fetchml` to change-directory to fetchml folder.
 
-python3 main.py
+## Usage
 
-# Customization
+run `python3 main.py`
 
-You can edit the index.html file whereis fetchml/index.html .
-Edit index.html to your likings. Some features may not be supported due to wkhtmltopdf.
-PS: You have to use internal CSS in a <style> tag due to wkhtmltopdf restrictions.
+## Customization
+
+You can edit the index.html file whereis `fetchml/index.html`.
+Edit `index.html` to your likings. Some features may not be supported due to wkhtmltopdf.
+PS: You have to use internal CSS in a `<style>` tag due to wkhtmltopdf restrictions.
 too lazy to fix tho
