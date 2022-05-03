@@ -1,196 +1,49 @@
 #!/usr/bin/env python3
 import imgkit
 import os
-###
+import json
 
-### PYFETCH CODE
-
-
-###
-
-### DISTRO ###
-
-
-def distro():
-    try:
-        with open('/etc/os-release') as f:
-            for line in f:
-                if 'PRETTY_NAME' in line:
-                    return line.split('=')[1].translate(str.maketrans('', '', '"'))
-    except FileNotFoundError:
-        return 'Unknown'
-
-### MEMORY ###
-
-
-def mem():
-    # Formula: usedmem = MemTotal + Shmem - MemFree - Buffers - Cached - SReclaimable
-    # Source: https://github.com/KittyKatt/screenFetch/issues/386#issuecomment-249312716
-    try:
-        with open('/proc/meminfo') as f:
-            current_mem = f.read().strip().split('\n')
-
-        mem_total = int(
-            [i for i in current_mem if 'MemTotal' in i][0].split()[1])
-        mem_shared = int(
-            [i for i in current_mem if 'Shmem' in i][0].split()[1])
-        mem_free = int(
-            [i for i in current_mem if 'MemFree' in i][0].split()[1])
-        mem_buffers = int(
-            [i for i in current_mem if 'Buffers' in i][0].split()[1])
-        mem_cached = int(
-            [i for i in current_mem if 'Cached' in i][0].split()[1])
-        mem_sreclaimable = int(
-            [i for i in current_mem if 'SReclaimable' in i][0].split()[1])
-
-        return {
-            'used_mem': mem_total
-            + mem_shared
-            - mem_free
-            - mem_buffers
-            - mem_cached
-            - mem_sreclaimable,
-            'total_mem': mem_total
-        }
-
-    except FileNotFoundError:
-        return {
-            'used_mem': 0,
-            'total_mem': 0
-        }
-
-### CPU ###
-
-
-def cpu():
-    try:
-        with open('/proc/cpuinfo') as f:
-            current_cpu = f.read().strip().split('\n')
-
-            cpu_model = [i for i in current_cpu if 'model name' in i][0].split(':')[
-                                                                               1].strip()
-            # cpu_cores = [i for i in current_cpu if 'cpu cores' in i][0].split(':')[1].strip()
-            # cpu_siblings = [i for i in current_cpu if 'siblings' in i][0].split(':')[1].strip()
-            # flags = [i for i in current_cpu if 'flags' in i][0].split(':')[1].strip().split(' ')
-
-            return {
-                'model': cpu_model,
-                # 'cores': cpu_cores,
-                # 'threads': cpu_siblings,
-                # 'flags': flags
-            }
-    except FileNotFoundError:
-        return {
-            'model': 'Unknown',
-            # 'cores': 0,
-            # 'threads': 0,
-            # 'flags': []
-        }
-
-### KERNEL ###
-
-
-def kernel():
-    try:
-        with open('/proc/version') as f:
-            return f.read().split()[2]
-    except FileNotFoundError:
-        return 'Unknown'
-
-### WEATHER ###
-# def weather():
-#     return os.popen('curl -s wttr.in/?format="%c%C%20%t"').read()
-
-### POWER CONSUMPTION ###
-# def power():
-    # only works on battery power
-    # try:
-    #     with open('/sys/class/power_supply/BAT0/power_now') as f:
-    #         return int(f.read().strip()) / 1000000
-    # except:
-    #     return 'N/A'
-
-
-### SHELL ###
-try:
-    shell = os.environ['SHELL']
-except KeyError:
-    shell = 'Unknown'
-
-### WM/DE ###
-try:
-    wm = os.environ['XDG_CURRENT_DESKTOP']
-except KeyError:
-    wm = 'Unknown'
-
-### HOSTNAME AND USER ###
-try:
-    with open('/etc/hostname') as f:
-        hostname = f.read().strip()
-    user = os.environ['USER']
-except (FileNotFoundError, KeyError):
-    hostname = 'Unknown'
-    user = 'Unknown'
-### VARS FOR MEM ###
-x = mem()
-total_mem = round(x['total_mem'] / 1024)
-used_mem = round(x['used_mem'] / 1024)
-free_mem = total_mem - used_mem
-
-### VARS FOR CPU ###
-y = cpu()
-cpu_model = y['model']
-# cpu_cores = y['cores']
-# cpu_threads = y['threads']
-# cpu_flags = y['flags']
-
-### OUTPUT STRING ###
-
-
-###
-
-### END OF PYFETCH
-
-###
-
+# Generating input from Neofetch and opening it as dict.
+os.system('neofetch --json > neofetch_output.json')
+neofetch_output = json.load(open('neofetch_output.json'))
 
 # Assigning command outputs as variables to display in HTML file
-system = user
-host = hostname
-kernel = kernel()
-uptime = ''
-packages = ''
-shell = shell
-resolution = ''
-terminal = ''
-cpu = ''
-gpu = ''
-memory = '{} MB / {} MB'.format(used_mem, total_mem)
-desktop_enviroment = ''
-window_manager = ''
-wmtheme = ''
+nf_os = neofetch_output['OS']
+nf_host = neofetch_output['Host']
+nf_kernel = neofetch_output['Kernel']
+nf_uptime = neofetch_output['Uptime']
+nf_packages = neofetch_output['Packages']
+nf_shell = neofetch_output['Shell']
+nf_resolution = neofetch_output['Resolution']
+nf_desktop = neofetch_output['DE']
+nf_window = neofetch_output['WM']
+nf_window_theme = neofetch_output['WM Theme']
+nf_terminal = neofetch_output['Terminal']
+nf_cpu = neofetch_output['CPU']
+nf_gpu = neofetch_output['GPU']
+nf_memory = neofetch_output['Memory']
 
 # Reading the file
 with open('index.html', 'r') as file:
     filedata = file.read()
 
     # Doing the replacements of variables
-    filedata = filedata.replace('$os', system)
-    filedata = filedata.replace('$host', host)
-    filedata = filedata.replace('$kernel', kernel)
-    filedata = filedata.replace('$uptime', uptime)
-    filedata = filedata.replace('$packages', packages)
-    filedata = filedata.replace('$shell', shell)
-    filedata = filedata.replace('$resolution', resolution)
+    filedata = filedata.replace('$os', nf_os)
+    filedata = filedata.replace('$host', nf_host)
+    filedata = filedata.replace('$kernel', nf_kernel)
+    filedata = filedata.replace('$uptime', nf_uptime)
+    filedata = filedata.replace('$packages', nf_packages)
+    filedata = filedata.replace('$shell', nf_shell)
+    filedata = filedata.replace('$resolution', nf_resolution)
     filedata = filedata.replace(
-        '$desktop_enviroment', desktop_enviroment)
-    filedata = filedata.replace('$window_manager', window_manager)
+        '$desktop_enviroment', nf_desktop)
+    filedata = filedata.replace('$window_manager', nf_window)
     filedata = filedata.replace(
-        '$wmtheme', wmtheme)
-    filedata = filedata.replace('$terminal', terminal)
-    filedata = filedata.replace('$cpu', cpu)
-    filedata = filedata.replace('$gpu', gpu)
-    filedata = filedata.replace('$memory', memory)
+        '$wmtheme', nf_window_theme)
+    filedata = filedata.replace('$terminal', nf_terminal)
+    filedata = filedata.replace('$cpu', nf_cpu)
+    filedata = filedata.replace('$gpu', nf_gpu)
+    filedata = filedata.replace('$memory', nf_memory)
 
     # Writing changes to new file
     with open('render.html', 'w') as file:
@@ -202,9 +55,6 @@ imgkit.from_file('render.html', 'result.png')
 os.system("echo Viewing")
 os.system("feh result.png")
 
-# Using neofetch output as info (Experimental)
-os.system('neofetch --json > neofetch_output.txt')
-
 # Function to remove Junk files. Reason behind I wrote
 # this as function is being able to disable it easier.
 
@@ -214,6 +64,7 @@ def remove_junk():
     if remove_junk == 'y':
         os.remove("result.png")
         os.remove("render.html")
+        os.remove("neofetch_output.json")
     elif remove_junk == 'n':
         quit()
     else:

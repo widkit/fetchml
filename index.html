@@ -1,43 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>fetchml</title>
-    <meta used-fetchml="true">
-    <style>
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap');
-    body{
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fetchml</title>
+  <meta used-fetchml="true">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap');
+
+    body {
       font-family: 'Fira Code', monospace;
     }
-    div{
-       height: 100%;
-       width: 100%;
-       display: flex;
+
+    div {
+      height: 100%;
+      width: 100%;
+      display: flex;
     }
-    pre{
+
+    pre {
       padding: 15px;
       margin: 20px;
-      display: inline-block; *display: inline; zoom: 1; vertical-align: top;
+      display: inline-block;
+      *display: inline;
+      zoom: 1;
+      vertical-align: top;
       width: 50%;
     }
-    .info{
+
+    .info {
       width: 50%;
       display: block;
       margin: auto;
       padding: 15px;
     }
-    main{
+
+    main {
       border: 2px black solid;
     }
-    </style>
+  </style>
 </head>
+
 <body>
-<main>
-<b>
-<div class="art">
-<pre>
+  <main>
+    <b>
+      <div class="art">
+        <pre>
                        -`
                       .o+`
                      `ooo/
@@ -58,24 +68,25 @@
      `++:.                           `-/+/
      .`                                 `
 </pre>
-<div class="info">
-<div id="os">$os</div>
-<div id="host">$host</div>
-<div id="kernel">$kernel</div>
-<div id="uptime">$uptime</div>
-<div id="packages">$packages</div>
-<div id="shell">$shell</div>
-<div id="resolution">$resolution</div>
-<div id="desktop-enviroment">$desktop_enviroment</div>
-<div id="window-manager">$window_manager</div>
-<div id="window-manager-theme">$wmtheme</div>
-<div id="terminal">$terminal</div>
-<div id="cpu">$cpu</div>
-<div id="gpu">$gpu</div>
-<div id="memory">$memory</div>
-</div>
-</div>
-</b>
-</main>
+        <div class="info">
+          <div id="os">OS: $os</div>
+          <div id="host">Host: $host</div>
+          <div id="kernel">Kernel: $kernel</div>
+          <div id="uptime">Uptime: $uptime</div>
+          <div id="packages">Packages: $packages</div>
+          <div id="shell">Shell: $shell</div>
+          <div id="resolution">Resolution: $resolution</div>
+          <div id="desktop-enviroment">DE: $desktop_enviroment</div>
+          <div id="window-manager">WM: $window_manager</div>
+          <div id="window-manager-theme">WM Theme: $wmtheme</div>
+          <div id="terminal">Terminal: $terminal</div>
+          <div id="cpu">CPU: $cpu</div>
+          <div id="gpu">GPU: $gpu</div>
+          <div id="memory">Memory: $memory</div>
+        </div>
+      </div>
+    </b>
+  </main>
 </body>
+
 </html>
