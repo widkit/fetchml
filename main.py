@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 import imgkit
 import os
-import sys
 ###
 
-
-###PYFETCH CODE
+### PYFETCH CODE
 
 
 ###
@@ -204,6 +202,23 @@ imgkit.from_file('render.html', 'result.png')
 os.system("echo Viewing")
 os.system("feh result.png")
 
-# Removing temp files
-os.remove("result.png")
-os.remove("render.html")
+# Using neofetch output as info (Experimental)
+os.system('neofetch --json > neofetch_output.txt')
+
+# Function to remove Junk files. Reason behind I wrote
+# this as function is being able to disable it easier.
+
+
+def remove_junk():
+    remove_junk = input('You want to remove junk files? (y/n)')
+    if remove_junk == 'y':
+        os.remove("result.png")
+        os.remove("render.html")
+    elif remove_junk == 'n':
+        quit()
+    else:
+        print('Invalid input. Try again.')
+        remove_junk()
+
+
+remove_junk()
