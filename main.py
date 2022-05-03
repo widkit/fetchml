@@ -57,10 +57,8 @@ os.system("feh result.png")
 
 # Function to remove Junk files. Reason behind I wrote
 # this as function is being able to disable it easier.
-
-
 def remove_junk():
-    remove_junk = input('You want to remove junk files? (y/n)')
+    remove_junk = input('You want to remove junk files? (y/n): ')
     if remove_junk == 'y':
         os.remove("result.png")
         os.remove("render.html")
