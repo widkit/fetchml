@@ -3,25 +3,32 @@ import imgkit
 import os
 import json
 import subprocess
+import time
 
-check_wk = subprocess.call(['which', 'wkhtmltopdf'])
-check_neofetch = subprocess.call(['which', 'neofetch'])
-check_feh = subprocess.call(['which', 'feh'])
 
 ########################################################
 #                     User Config:
 ask_junk_file_removal = 0
 ########################################################
 
+
+check_wk = subprocess.call(['which', 'wkhtmltopdf'])
+check_neofetch = subprocess.call(['which', 'neofetch'])
+check_feh = subprocess.call(['which', 'feh'])
+
+
 if check_feh == 1:
+
     print('Although feh is optional, It\'s recommended to install to view the output.')
 
 
 if check_wk == 0 and check_neofetch == 0:
+
     ok = 1
 
-else:
 
+else:
+    
     ok = 0
 
 
@@ -54,6 +61,7 @@ if ok == 1:
     # Reading the file
 
     with open('index.html', 'r') as file:
+
         filedata = file.read()
 
         # Doing the replacements of variables
@@ -78,6 +86,7 @@ if ok == 1:
         # Writing changes to new file
 
         with open('render.html', 'w') as file:
+
             file.write(filedata)
 
 
@@ -127,6 +136,10 @@ if ok == 1:
 
         pass
 
+
+    print('Clearing... \n Thanks for using fetchml.')
+    time.sleep(1.337)
+    subprocess.call(['clear'])
 else:
 
     print('Error: Make sure if you have neofetch and wkhtmltopdf installed and in the Path.')
