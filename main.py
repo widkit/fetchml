@@ -6,18 +6,35 @@ import subprocess
 
 check_wk = subprocess.call(['which', 'wkhtmltopdf'])
 check_neofetch = subprocess.call(['which', 'neofetch'])
+check_feh = subprocess.call(['which', 'feh'])
+
+########################################################
+#                     User Config:
+ask_junk_file_removal = 0
+########################################################
+
+if check_feh == 1:
+    print('Although feh is optional, It\'s recommended to install to view the output.')
+
 
 if check_wk == 0 and check_neofetch == 0:
     ok = 1
+
 else:
+
     ok = 0
 
+
 if ok == 1:
+
     # Generating input from Neofetch and opening it as dict.
+
     os.system('neofetch --json > neofetch_output.json')
     neofetch_output = json.load(open('neofetch_output.json'))
 
+
     # Assigning command outputs as variables to display in HTML file
+
     nf_os = neofetch_output['OS']
     nf_host = neofetch_output['Host']
     nf_kernel = neofetch_output['Kernel']
@@ -33,7 +50,9 @@ if ok == 1:
     nf_gpu = neofetch_output['GPU']
     nf_memory = neofetch_output['Memory']
 
+
     # Reading the file
+
     with open('index.html', 'r') as file:
         filedata = file.read()
 
@@ -55,13 +74,20 @@ if ok == 1:
         filedata = filedata.replace('$gpu', nf_gpu)
         filedata = filedata.replace('$memory', nf_memory)
 
+
         # Writing changes to new file
+
         with open('render.html', 'w') as file:
             file.write(filedata)
+
+
     # Using IMGKIT to render the render.html and outputting as result.png
+
     imgkit.from_file('render.html', 'result.png')
 
+
     # Using feh to display the output image
+
     os.system("echo Viewing")
     os.system("feh result.png")
 
@@ -69,16 +95,38 @@ if ok == 1:
     # this as function is being able to disable it easier.
 
     def remove_junk():
-        remove_junk = input('You want to remove junk files? (y/n): ')
-        if remove_junk == 'y':
-            os.remove("result.png")
-            os.remove("render.html")
-            os.remove("neofetch_output.json")
-        elif remove_junk == 'n':
-            quit()
-        else:
-            print('Invalid input. Try again.')
-            remove_junk()
-    remove_junk()
+
+        try:
+
+            remove_junk = input('You want to remove junk files? (y/n): ')
+
+            if remove_junk == 'y':
+
+                os.remove("result.png")
+                os.remove("render.html")
+                os.remove("neofetch_output.json")
+
+            elif remove_junk == 'n':
+
+                quit()
+
+            else:
+
+                print('Invalid input. Try again.')
+                remove_junk()
+
+        except:
+
+            pass
+
+    if ask_junk_file_removal == 1:
+
+        remove_junk()
+
+    else:
+
+        pass
+
 else:
+
     print('Error: Make sure if you have neofetch and wkhtmltopdf installed and in the Path.')
