@@ -7,6 +7,11 @@
 fetchml uses HTML templates to display output of system information.
 
 It is super-easy to customize with a little HTML and CSS knowledge.
+## Dependencies
+
+You need to install`imgkit` via pip.
+`wkhtmltopdf` and `neofetch' via your package manager.
+`feh` is optional.
 
 ## Installation
 
