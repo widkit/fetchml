@@ -10,7 +10,7 @@ It is super-easy to customize with a little HTML and CSS knowledge.
 ## Dependencies
 
 You need to install `imgkit` via pip.
-`wkhtmltopdf neofetch' via your package manager.
+`wkhtmltopdf` and `neofetch` via your package manager.
 `feh` is optional.
 
 ## Installation
